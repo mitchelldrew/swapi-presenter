@@ -1,0 +1,74 @@
+import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTargetWithTests
+import org.jetbrains.kotlin.gradle.tasks.FatFrameworkTask
+
+plugins {
+    id 'org.jetbrains.kotlin.multiplatform' version '1.5.10'
+    id 'maven-publish'
+}
+
+group = 'ro.kofe.swapi'
+version = '0.0.032'
+//def frameworkName = 'presenter'
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+kotlin {
+    jvm{
+        compilations.all {
+            kotlinOptions.jvmTarget = '1.8'
+        }
+        testRuns["test"].executionTask.configure {
+            useJUnit()
+        }
+    }
+    //ios("ios")
+
+//    targets {
+//        iosArm64("iosArm64")
+//        iosArm32("iosArm32")
+//        iosX64("iosX64")
+//        configure([iosArm32,iosX64,iosArm64]) {
+//            binaries.framework {
+//                embedBitcode("bitcode")
+//                baseName = frameworkName
+//            }
+//        }
+//    }
+    
+    sourceSets {
+        commonMain {
+            dependencies{
+                implementation 'ro.kofe.swapi:model:0.0.032'
+            }
+        }
+        jvmMain {
+            dependencies{
+                commonMain
+            }
+        }
+        jvmTest {
+            dependencies {
+                commonMain
+                implementation kotlin('test-junit')
+            }
+        }
+//        iosX64Main{
+//            dependencies{
+//                commonMain
+//            }
+//        }
+    }
+
+//    task releaseFatFramework(type: FatFrameworkTask){
+//        baseName = frameworkName
+//        destinationDir = file("$buildDir/fat-framework/release")
+//        from(
+//                targets.iosArm32.binaries.getFramework("DEBUG"),
+//                targets.iosArm64.binaries.getFramework("DEBUG")
+//        )
+//    }
+}
+
