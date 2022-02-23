@@ -1,17 +1,24 @@
 package ro.kofe.swapi.presenter.ipv.film
 
 import ro.kofe.swapi.model.Film
+import ro.kofe.swapi.model.LogTag.FILM_PRESENTER
 import ro.kofe.swapi.model.People
 import ro.kofe.swapi.presenter.IFreezer
+import ro.kofe.swapi.presenter.ipv.Presenter
+import ro.kofe.swapi.presenter.provider.ILoggingProvider
 import ro.kofe.swapi.presenter.provider.IProvider
 import ro.kofe.swapi.presenter.provider.IProviderListener
 
 
 class FilmPresenter(
     private val freezer: IFreezer,
-    private var filmProvider: IProvider<Film>?
-) : IFilmPresenter {
-    private var view: IFilmView? = null
+    private var filmProvider: IProvider<Film>?,
+    loggingProvider: ILoggingProvider
+) : IFilmPresenter, Presenter<IFilmView>(
+    null,
+    loggingProvider,
+    FILM_PRESENTER
+) {
     private var filmListener: IProviderListener<Film>? = null
 
 

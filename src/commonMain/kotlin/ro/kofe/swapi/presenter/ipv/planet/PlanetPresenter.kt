@@ -1,17 +1,23 @@
 package ro.kofe.swapi.presenter.ipv.planet
 
-import ro.kofe.swapi.model.People
+import ro.kofe.swapi.model.LogTag.PLANET_PRESENTER
 import ro.kofe.swapi.model.Planet
 import ro.kofe.swapi.presenter.IFreezer
+import ro.kofe.swapi.presenter.ipv.Presenter
+import ro.kofe.swapi.presenter.provider.ILoggingProvider
 import ro.kofe.swapi.presenter.provider.IProvider
 import ro.kofe.swapi.presenter.provider.IProviderListener
 
 
 class PlanetPresenter(
     private val freezer: IFreezer,
-    private var planetProvider: IProvider<Planet>?
-) : IPlanetPresenter {
-    private var view: IPlanetView? = null
+    private var planetProvider: IProvider<Planet>?,
+    loggingProvider: ILoggingProvider
+    ) : IPlanetPresenter, Presenter<IPlanetView>(
+    null,
+    loggingProvider,
+    PLANET_PRESENTER
+) {
     private var planetListener: IProviderListener<Planet>? = null
 
 

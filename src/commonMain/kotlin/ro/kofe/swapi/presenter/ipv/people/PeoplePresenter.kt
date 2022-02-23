@@ -1,16 +1,23 @@
 package ro.kofe.swapi.presenter.ipv.people
 
+import ro.kofe.swapi.model.LogTag.PEOPLE_PRESENTER
 import ro.kofe.swapi.model.People
 import ro.kofe.swapi.presenter.IFreezer
+import ro.kofe.swapi.presenter.ipv.Presenter
+import ro.kofe.swapi.presenter.provider.ILoggingProvider
 import ro.kofe.swapi.presenter.provider.IProvider
 import ro.kofe.swapi.presenter.provider.IProviderListener
 
 
 class PeoplePresenter(
     private val freezer: IFreezer,
-    private var peopleProvider: IProvider<People>?
-) : IPeoplePresenter {
-    private var view: IPeopleView? = null
+    private var peopleProvider: IProvider<People>?,
+    loggingProvider: ILoggingProvider
+) : IPeoplePresenter, Presenter<IPeopleView>(
+    null,
+    loggingProvider,
+    PEOPLE_PRESENTER
+) {
     private var peopleListener: IProviderListener<People>? = null
 
 

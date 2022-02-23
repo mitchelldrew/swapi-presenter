@@ -3,7 +3,7 @@ package ro.kofe.swapi.presenter.ipv
 import ro.kofe.swapi.presenter.provider.ILoggingProvider
 
 abstract class Presenter<V: IView>(
-    private var view: V?,
+    internal var view: V?,
     loggingProvider: ILoggingProvider?,
     logTag:String
 ): SwapiObj(loggingProvider,logTag), IPresenter<V> {
